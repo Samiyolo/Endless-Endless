@@ -15,10 +15,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         RB = GetComponent<Rigidbody>();
-    }
-
-    private void Start()
-    {
         begin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         canMove = true;
     }
