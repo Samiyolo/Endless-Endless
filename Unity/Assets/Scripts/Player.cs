@@ -10,6 +10,12 @@ public class Player : MonoBehaviour
 
     private bool canMove;
     public bool CanControl;
+    private Rigidbody RB;
+
+    private void Start()
+    {
+        RB = GetComponent<Rigidbody>();
+    }
 
     private void Start()
     {
