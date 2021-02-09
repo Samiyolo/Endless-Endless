@@ -5,15 +5,20 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public bool CanControl;
+    private Rigidbody RB;
+
+    private void Start()
+    {
+        RB = GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (CanControl && Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             MovePlayer(-3);//right movement
         }
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (CanControl && Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             MovePlayer(3);//left movement
         }
