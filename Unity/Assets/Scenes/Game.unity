@@ -4768,6 +4768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanControl: 0
+  maxMoveSpeed: 10
 --- !u!65 &1392886953
 BoxCollider:
   m_ObjectHideFlags: 0
