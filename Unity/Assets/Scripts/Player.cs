@@ -1,22 +1,26 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private Vector3 begin;
+    private Vector3 destination;
+    private float fraction = 1;
+
+    private bool canMove;
     public bool CanControl;
+
+    private void Start()
+    {
+        begin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        canMove = true;
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            MovePlayer(-3);//right movement
-        }
+        Movement();
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            MovePlayer(3);//left movement
-        }
         if (Input.GetKeyDown(KeyCode.Escape))//pause key
         {
             PauseTheGame();
@@ -31,13 +35,40 @@ public class Player : MonoBehaviour
         }
     }
 
-    void MovePlayer(int side)//positive is right, negative left
+    private void Movement()
     {
-        if (CanControl)
+        if (canMove)
         {
-            transform.position = new Vector3(transform.position.x - side, transform.position.y, transform.position.z);
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                //locates a new destination on the right side to lerp to and starts the lerp by putting the franction on 0.
+                destination = new Vector3(transform.position.x + 3f, transform.position.y, transform.position.z);
+                fraction = 0;
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                //locates a new destination on the left side to lerp to and starts the lerp by putting the franction on 0.
+                destination = new Vector3(transform.position.x - 3f, transform.position.y, transform.position.z);
+                fraction = 0;
+            }
+        }
+
+        if (fraction < 1)
+        {
+            //updates the fraction so the lerp continues to play untill it's on the new destination.
+            fraction += Time.deltaTime * 1.5f;
+            transform.position = Vector3.Lerp(begin, destination, fraction);
+
+            //Updates the starting location of the next lerp.
+            begin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            canMove = false;
+        }
+        else
+        {
+            canMove = true;
         }
     }
+
     void PauseTheGame()
     {
         FindObjectOfType<PauzeManager>().CheckIfPaused();
