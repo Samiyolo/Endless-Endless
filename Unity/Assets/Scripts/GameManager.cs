@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -13,14 +14,25 @@ public class GameManager : MonoBehaviour
     public GameObject[] obstacleChunksM;
     public GameObject[] obstacleChunksH;
 
+    private float scoreTimer;
+    private float score;
+    public float multiplier;
+    [SerializeField] private Text scoreUI;
+    [SerializeField] private Text multiplierUI;
+
     private void Start()
     {
         difficulty = DifficultyState.Easy;
         Time.timeScale = 1;
+        multiplier = 1;
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            multiplier = multiplier * 2;
+        }
         Timefloat += Time.deltaTime;
         if (Timefloat >= 20)
         {
@@ -30,6 +42,21 @@ public class GameManager : MonoBehaviour
         {
             difficulty = DifficultyState.Hard;
         }
+
+        UpdateScore();
+    }
+
+    private void UpdateScore()
+    {
+        scoreTimer += Time.deltaTime;
+        if (scoreTimer >= 0.5f)
+        {
+            score = score + 10 * multiplier;
+            scoreTimer = 0;
+        }
+
+        scoreUI.text = "Score: " + score.ToString("00");
+        multiplierUI.text = multiplier.ToString("x0.00");
     }
 
     public void SpawnObject()
