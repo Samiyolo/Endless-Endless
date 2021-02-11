@@ -8,16 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: cea16bebb9ca99a47b0cd9e5f107edd5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Game.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DeathScene.unity
     guid: eb5d1e310f179e443a5bb13c713c3432
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestingPuns.unity
     guid: b11fc3501eb245549a1cc02733c9057c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/testingchat.unity
     guid: bff0e9e9f94b6c7488b50657838d67b8
   m_configObjects: {}
