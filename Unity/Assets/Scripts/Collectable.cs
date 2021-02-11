@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameManager gameManager;
+
+    private void Start()
     {
-        
+        gameManager = FindObjectOfType<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider coll)
     {
-        
+        if (coll.gameObject.CompareTag("Player"))
+        {
+            gameManager.multiplier = gameManager.multiplier + 0.01f;
+            Destroy(gameObject);
+        }
     }
 }
