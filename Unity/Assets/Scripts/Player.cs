@@ -1,8 +1,9 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviourPunCallbacks
 {
     private Vector3 begin;
     private Vector3 destination;
@@ -12,8 +13,15 @@ public class Player : MonoBehaviour
     public bool CanControl;
     private Rigidbody RB;
 
-    private void Start()
+    public override void OnEnable()
     {
+        base.OnEnable();
+
+        if (!photonView.IsMine)
+        {
+            Destroy(gameObject.GetComponent<Player>());
+        }
+    
         RB = GetComponent<Rigidbody>();
         begin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         canMove = true;
