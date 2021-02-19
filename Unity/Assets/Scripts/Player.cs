@@ -20,8 +20,10 @@ public class Player : MonoBehaviourPunCallbacks
         if (!photonView.IsMine)
         {
             Destroy(gameObject.GetComponent<Player>());
+
+            SetOpacity();
         }
-    
+
         RB = GetComponent<Rigidbody>();
         begin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         canMove = true;
@@ -82,5 +84,15 @@ public class Player : MonoBehaviourPunCallbacks
     void PauseTheGame()
     {
         FindObjectOfType<PauzeManager>().CheckIfPaused();
+    }
+
+    void SetOpacity()
+    {
+        Color color;
+        color = GetComponent<MeshRenderer>().material.color;
+
+        color.g = 0.5f;
+        color.b = 0.5f;
+        GetComponent<MeshRenderer>().material.color = color;
     }
 }
