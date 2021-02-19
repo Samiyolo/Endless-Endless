@@ -32,6 +32,7 @@ public class Player : MonoBehaviourPunCallbacks
     void Update()
     {
         Movement();
+        FractionUpdater();
 
         if (Input.GetKeyDown(KeyCode.Escape))//pause key
         {
@@ -51,34 +52,41 @@ public class Player : MonoBehaviourPunCallbacks
     {
         if (canMove)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
                 //locates a new destination on the right side to lerp to and starts the lerp by putting the franction on 0.
                 destination = new Vector3(transform.position.x + 3f, transform.position.y, transform.position.z);
                 fraction = 0;
+                canMove = false;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
                 //locates a new destination on the left side to lerp to and starts the lerp by putting the franction on 0.
                 destination = new Vector3(transform.position.x - 3f, transform.position.y, transform.position.z);
                 fraction = 0;
+                canMove = false;
             }
         }
 
+    }
+
+    private void FractionUpdater()
+    {
         if (fraction < 1)
         {
             //updates the fraction so the lerp continues to play untill it's on the new destination.
-            fraction += Time.deltaTime * 1.5f;
+            fraction += Time.deltaTime * 3f;
             transform.position = Vector3.Lerp(begin, destination, fraction);
 
             //Updates the starting location of the next lerp.
             begin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            canMove = false;
         }
-        else
+
+        if (fraction >= 1)
         {
             canMove = true;
         }
+
     }
 
     void PauseTheGame()
