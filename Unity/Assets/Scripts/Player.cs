@@ -17,11 +17,14 @@ public class Player : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
 
-        if (!photonView.IsMine)
+        if (PhotonNetwork.IsConnected)
         {
-            Destroy(gameObject.GetComponent<Player>());
+            if (!photonView.IsMine)
+            {
+                Destroy(gameObject.GetComponent<Player>());
 
-            SetOpacity();
+                SetOpacity();
+            }
         }
 
         RB = GetComponent<Rigidbody>();
@@ -44,7 +47,10 @@ public class Player : MonoBehaviourPunCallbacks
     {
         if (collision.gameObject.tag != "Ground")
         {
-            FindObjectOfType<GameManager>().GameOver();
+            if (!PhotonNetwork.IsConnected)
+            {
+                FindObjectOfType<GameManager>().GameOver();
+            }
         }
     }
 

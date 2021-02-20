@@ -8,14 +8,14 @@ public class GameManager : MonoBehaviour
 {
     public GameObject ChunkSpawnLoc;
     private float Timefloat;
-    private enum DifficultyState {Easy, Medium, Hard}
-    private DifficultyState difficulty;
+    public enum DifficultyState {Easy, Medium, Hard}
+    public DifficultyState difficulty;
     public GameObject[] obstacleChunksE;
     public GameObject[] obstacleChunksM;
     public GameObject[] obstacleChunksH;
 
     private float scoreTimer;
-    private float score;
+    public float score;
     public float multiplier;
     [SerializeField] private Text scoreUI;
     [SerializeField] private Text multiplierUI;
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         scoreTimer += Time.deltaTime;
         if (scoreTimer >= 0.5f)
         {
-            score = score + 10 * multiplier;
+            score += 10 * multiplier;
             scoreTimer = 0;
         }
 
@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerOBJ;
     public void GameOver()
     {
-        SceneManager.LoadScene(2);
+        PlayerPrefs.SetFloat("Score", score);
+        SceneManager.LoadScene(5);
     }
 }

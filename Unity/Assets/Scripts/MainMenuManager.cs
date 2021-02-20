@@ -19,7 +19,7 @@ public class MainMenuManager : MonoBehaviour
 
     void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(6);
     }
 
     void GoMultiplayer()

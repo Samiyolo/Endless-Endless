@@ -21,6 +21,10 @@ public class PlayerSpawner : MonoBehaviourPunCallbacks
 
             GameObject go = PhotonNetwork.Instantiate(m_playerPrefabStr, spawnLoc.transform.position, spawnLoc.transform.rotation);
             go.name += PhotonNetwork.NickName;
+            //if (photonView.IsMine)
+            //{
+            //    FindObjectOfType<GameManager>().playerOBJ = go;
+            //}
         }
 
         Destroy(GetComponent<PlayerSpawner>());
